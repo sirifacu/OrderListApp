@@ -1,0 +1,43 @@
+.navbar {
+    height: 65px;
+    background-color: rgb(153, 15, 24);
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 7px 9px 5px rgba(117,117,117,1);
+    margin-bottom: 15px;
+    justify-content: space-between;
+  }
+  
+  .itemLeft {
+      margin-left: 10%;
+  }
+
+  .itemRight {
+    margin-right: 10%;
+    }
+  
+  .navTitle {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .firstItem {
+    margin-left: auto;
+  }
+  
+  .navItems {
+    color: rgb(88, 88, 88);
+    font-weight: bold;
+    margin-right: 30px;
+  } 
+  
+  .navItems:hover {
+    color: #888;  
+  }
+  
+  .active{
+    color: #FFF;
+    text-decoration: underline;
+  }
+  
