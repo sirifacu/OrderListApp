@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
+import ConfirmationModal from '../../ConfirmationModal';
+// @ts-ignore
 import s from '../../styles/Card.module.css';
 
 export default function Card(props) {
     const {id, name, address, time, notes, delivery, details, totalPrice, state, history, listOrders} = props
     let classOne = "text-start my-1"
+    const [openClose, setOpenClose] = useState(false)
+
+    const openCloseModal = () => setOpenClose(!openClose)
+
     const stateColor = () => {
         if(state === 1) return 'success';
         return 'danger'
@@ -32,7 +38,7 @@ export default function Card(props) {
         }
     }
     return (
-        
+        <>
         <div className={`${s.wrapper} border-${stateColor()}`}>
             <div className={s.cols}>
                 {/* Left Column */}
@@ -62,9 +68,15 @@ export default function Card(props) {
                 <div>
                     <button onClick={prepared} className={`mx-2 btn btn-${btnColor()}`} >Preparado</button>
                     <button onClick={() => history.push(`orders/edit/${id}`)} className="mx-2 btn btn-primary">Editar</button>
-                    <button onClick={removeOrder} className="mx-2 btn btn-danger">Eliminar</button>
+                    <button onClick={openCloseModal} className="mx-2 btn btn-danger">Eliminar</button>
                 </div>
             </div>
         </div>
+        <ConfirmationModal  openClose={openClose}
+                            openCloseModal={openCloseModal}
+                            title={'Eliminar Pedido'}
+                            body={"Segurísimo que querés eliminar este pedido?"}
+                            deleteFunction={removeOrder}   />
+        </>
     )
 }

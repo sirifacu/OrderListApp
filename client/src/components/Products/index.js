@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import ConfirmationModal from '../ConfirmationModal'
 
 export default function Products({ history }) {
     const [products, setProducts] = useState([])
+    const [openClose, setOpenClose] = useState(false)
+
+    const openCloseModal = () => setOpenClose(!openClose)
 
     const listProducts = () => {
         axios.get('producto/list')
@@ -15,8 +19,9 @@ export default function Products({ history }) {
 
     const deleteProduct = (item) => {
         axios.delete('producto/remove?_id='+item._id)
-        .then((res) => listProducts())
-        .catch( (err) => console.log(err)); 
+        .then( res => listProducts())
+        .then( res => openCloseModal())
+        .catch( err => console.log(err)); 
     }
 
     const activateDeactivate = (item) => {
@@ -50,9 +55,10 @@ export default function Products({ history }) {
                     </thead>
                     <tbody>
                         {products.map(prod => (
+                            <>
                             <tr key={prod._id}>
                             <th scope="row">   
-                                <span onClick={() => deleteProduct(prod)} style={{cursor: 'pointer'}} className="d-inline"><i className="far fa-trash-alt"></i></span>
+                                <span onClick={openCloseModal} style={{cursor: 'pointer'}} className="d-inline"><i className="far fa-trash-alt"></i></span>
                                 <Link style={{color: 'black'}} to={`products/edit/${prod._id}`}>
                                     <span style={{cursor: 'pointer'}} className="d-inline mx-3"><i className="far fa-edit"></i></span>
                                 </Link>
@@ -67,6 +73,14 @@ export default function Products({ history }) {
                                 <td>$ {prod.precio_venta}</td>
                                 <td>{prod.codigo}</td>
                             </tr>
+
+                            <ConfirmationModal  openClose={openClose}
+                                                openCloseModal={openCloseModal}
+                                                title={'Eliminar Producto'}
+                                                body={"Segurísimo que querés eliminar este producto?"}
+                                                deleteFunction={() => deleteProduct(prod)}   />
+        
+                            </>
                         ))}
                         
                     </tbody>
