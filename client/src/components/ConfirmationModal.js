@@ -13,7 +13,7 @@ export default function ConfirmationModal({openClose, openCloseModal, title, bod
             </ModalBody>
             <ModalFooter className="d-flex justify-content-center">
                 <Button color="secondary" onClick={openCloseModal}>Cerrar</Button>
-                <Button color="danger" onClick={deleteFunction}>Eliminar</Button>
+                {deleteFunction ? <Button color="danger" onClick={deleteFunction}>Eliminar</Button> : null}
             </ModalFooter>
         </Modal>
     )

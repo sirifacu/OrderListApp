@@ -25,7 +25,7 @@ export default function Header({history, orders, filterDate, setFilterDate}) {
                         style={{width: '60%'}} />
             </div>
             <div className={s.third}>
-                <h3 className="text-center fw-bold">Contador de Burgers: {counter()}</h3>
+                <h4 className="text-center fw-bold">Contador de Burgers: {counter()}</h4>
             </div>
             <div className={`${s.third} text-end`}>
                 <button onClick={() => history.push('/orders/add')} className="btn btn-light border border-dark">Nuevo</button>
